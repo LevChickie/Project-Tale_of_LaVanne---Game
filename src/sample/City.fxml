@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+    <top>
+        <VBox prefHeight="64.0" prefWidth="1280.0" BorderPane.alignment="CENTER">
+            <children>
+                <MenuBar>
+                    <menus>
+                        <Menu mnemonicParsing="false" onMenuValidation="#saveGame" text="Save">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="Close" />
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" onMenuValidation="#loadGame" text="Load">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="Delete" />
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" onMenuValidation="#clickOnExit" text="Exit">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="About" />
+                            </items>
+                        </Menu>
+                    </menus>
+                </MenuBar>
+            <TextField fx:id="Location" editable="false" text="Berg Aen Dal, city" />
+            </children>
+        </VBox>
+    </top>
+    <bottom>
+        <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <children>
+                <HBox prefHeight="100.0" prefWidth="1596.0">
+                    <children>
+                        <TextArea fx:id="dialogueContainer" editable="false" prefHeight="100.0" prefWidth="709.0" />
+                    </children>
+                </HBox>
+                <HBox layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="1378.0">
+                    <children>
+                        <VBox prefHeight="100.0" prefWidth="489.0">
+                            <children>
+                                <TextField fx:id="responseContainerA" editable="false" prefHeight="31.0" prefWidth="440.0" />
+                                <TextField fx:id="responseContainerB" editable="false" prefHeight="31.0" prefWidth="440.0" />
+                                <TextField fx:id="responseContainerC" editable="false" prefHeight="31.0" prefWidth="440.0" />
+                            </children>
+                        </VBox>
+                    </children>
+                </HBox>
+                <HBox layoutX="784.0" layoutY="10.0" prefHeight="100.0" prefWidth="297.0">
+                    <children>
+                  <VBox prefHeight="100.0" prefWidth="50.0">
+                     <children>
+                              <Button fx:id="ButtonA" mnemonicParsing="false" onAction="#clickOnDialA" text="A" />
+                              <Button fx:id="ButtonB" mnemonicParsing="false" onAction="#clickOnDialB" prefHeight="31.0" prefWidth="55.0" text="B" />
+                              <Button fx:id="ButtonC" mnemonicParsing="false" onAction="#clickOnDialC" text="C" />
+                     </children>
+                  </VBox>
+                    </children>
+                </HBox>
+            </children>
+        </HBox>
+    </bottom>
+    <left>
+        <VBox prefHeight="556.0" prefWidth="138.0" BorderPane.alignment="CENTER">
+            <children>
+                <TextField editable="false" prefHeight="102.0" prefWidth="138.0" text="Inventory:">
+                    <font>
+                        <Font name="System Italic" size="25.0" />
+                    </font>
+                </TextField>
+                <TextArea fx:id="Inventory" prefHeight="326.0" prefWidth="135.0" text="Gold&#10;Longsword" />
+            <TextField fx:id="nameOfPartner" />
+                <ImageView fx:id="speechPartnerView" fitHeight="205.0" fitWidth="147.0" onMouseClicked="#clickOnPerson" pickOnBounds="true" preserveRatio="true" visible="false">
+                    <image>
+                        <Image url="@LaVanne.png" />
+                    </image>
+                </ImageView>
+            </children>
+        </VBox>
+    </left>
+    <right>
+        <VBox prefHeight="556.0" prefWidth="160.0" BorderPane.alignment="CENTER">
+            <children>
+                <TextField prefHeight="77.0" prefWidth="160.0" text="To Do List:">
+                    <font>
+                        <Font name="System Bold" size="23.0" />
+                    </font>
+                </TextField>
+                <TextArea fx:id="ToDoList" editable="false" prefHeight="328.0" prefWidth="160.0" text="Enter the Tavern&#10;Speak with Cáermé" />
+            <TextField text="Sebastien LaVanne" />
+                <ImageView fx:id="heroView" fitHeight="230.0" fitWidth="170.0" onMouseClicked="#clickOnBastien" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@LaVanne.png" />
+                    </image>
+                </ImageView>
+            </children>
+        </VBox>
+    </right>
+    <center>
+        <Pane prefHeight="556.0" prefWidth="981.0" BorderPane.alignment="CENTER">
+            <children>
+                <Button layoutX="229.0" layoutY="364.0" mnemonicParsing="false" text="Talk" />
+                <Button layoutX="465.0" layoutY="371.0" mnemonicParsing="false" text="PickUpSilver" />
+                <ImageView fx:id="playGroundImageView" fitHeight="541.0" fitWidth="981.0" onMouseClicked="#clickOnPerson" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@city2.png" />
+                    </image>
+                </ImageView>
+                <Button fx:id="enterCastle" layoutX="489.0" layoutY="61.0" mnemonicParsing="false" onAction="#setEnterCastle" text="Enter Castle" />
+                <Button fx:id="enterTavern" layoutX="23.0" layoutY="315.0" mnemonicParsing="false" onAction="#setEnterTavern" text="Enter Tavern" />
+                <Button fx:id="enterThievesDen" layoutX="169.0" layoutY="213.0" mnemonicParsing="false" onAction="#setEnterThievesDen" text="Go to thieves Den" />
+            <Button layoutX="10.0" layoutY="-1.0" mnemonicParsing="false" onAction="#changeImageOnPushForOrell" text="Change For Orell" visible="false" />
+            <Button fx:id="pickUpSilver" layoutX="498.0" layoutY="380.0" mnemonicParsing="false" onAction="#pickUpSilverCastle" text="pick up Silver" visible="false" />
+            <Button layoutX="142.0" layoutY="-1.0" mnemonicParsing="false" onAction="#changeImageOnPushForEloise" text="Change For Eloise" visible="false" />
+            <Button fx:id="buyBeer" layoutX="781.0" layoutY="204.0" mnemonicParsing="false" onAction="#loseSilver" text="Buy a Beer" visible="false" />
+            <Button fx:id="talkBartender" layoutX="806.0" layoutY="172.0" mnemonicParsing="false" onAction="#greetingMonologueBartender" text="Talk bartender" visible="false" />
+            <Button fx:id="talkCaerme" layoutX="404.0" layoutY="197.0" mnemonicParsing="false" onAction="#greetingMonologueCaerme" text="Talk: Caerme" visible="false" />
+            <Button fx:id="talkOrell" layoutX="299.0" layoutY="188.0" mnemonicParsing="false" onAction="#greetingMonologueOrell" text="Talk Orell" visible="false" />
+            <Button fx:id="talkBardolf" layoutX="528.0" layoutY="204.0" mnemonicParsing="false" onAction="#greetingMonologueBardolf" text="Talk: Bardolf" visible="false" />
+            <Button fx:id="talkEloise" layoutX="424.0" layoutY="220.0" mnemonicParsing="false" onAction="#greetingMonologueEloise" text="Talk: Eloise" visible="false" />
+            <Button fx:id="talkChepard" layoutX="637.0" layoutY="346.0" mnemonicParsing="false" onAction="#greetingMonologueChepard" text="Talk: Chepard" visible="false" />
+            <Button fx:id="talkThug" layoutX="648.0" layoutY="331.0" mnemonicParsing="false" onAction="#greetingMonologueThug" text="Talk: Thug" visible="false" />
+            <Button fx:id="returnCity" layoutX="842.0" layoutY="500.0" mnemonicParsing="false" onAction="#setReturnCity" text="Return to city" visible="false" />
+            <Button fx:id="pickUpAnotherSilver" layoutX="655.0" layoutY="255.0" mnemonicParsing="false" onAction="#pickUpSilverTavern" text="pick up Silver" />
+            <Button fx:id="pickUpJewellery" layoutX="54.0" layoutY="267.0" mnemonicParsing="false" onAction="#pickUpJewellery" text="steal Jewellery" visible="false" />
+            <Button layoutX="243.0" layoutY="283.0" mnemonicParsing="false" onAction="#greetingMonologueFicsur" text="Talk: Ficsur" visible="false" />
+            <Button fx:id="goToMerchantDistrict" layoutX="776.0" layoutY="331.0" mnemonicParsing="false" onAction="#goMerchantDistrict" text="Enter Merchant District" />
+            <Button fx:id="enterMurderScene" layoutX="86.0" layoutY="236.0" mnemonicParsing="false" onAction="#setGoToMurderScene" text="Murder Scene" visible="false" />
+            <Button fx:id="enterLibrary" layoutX="229.0" layoutY="346.0" mnemonicParsing="false" onAction="#setEnterLibrary" text="Library" visible="false" />
+            <Button fx:id="talkGaelin" layoutX="213.0" layoutY="197.0" mnemonicParsing="false" onAction="#greetingMonologueGaelin" text="Talk: Gaelin" visible="false" />
+            <Button fx:id="talkLuna" layoutX="308.0" layoutY="106.0" mnemonicParsing="false" onAction="#greetingMonologueLuna" text="Talk: Luna" visible="false" />
+            <Button fx:id="talkKathrin" layoutX="721.0" layoutY="229.0" mnemonicParsing="false" onAction="#greetingMonologueKathrin" text="Talk Kathrin" visible="false" />
+            <Button fx:id="talkGuard" layoutX="605.0" layoutY="240.0" mnemonicParsing="false" onAction="#greetingMonologueGuard" text="Talk: Guard" visible="false" />
+            </children>
+        </Pane>
+    </center>
+</BorderPane>
