@@ -97,7 +97,7 @@
                         <Font name="System Bold" size="23.0" />
                     </font>
                 </TextField>
-                <TextArea fx:id="ToDoList" editable="false" prefHeight="328.0" prefWidth="160.0" text="Enter the Tavern&#10;Speak with Cáermé" />
+                <TextArea fx:id="ToDoList" editable="false" prefHeight="328.0" prefWidth="160.0" text="Enter the Tavern&#10;Speak with Cáermé&#10;" />
             <TextField text="Sebastien LaVanne" />
                 <ImageView fx:id="heroView" fitHeight="230.0" fitWidth="170.0" onMouseClicked="#clickOnBastien" pickOnBounds="true" preserveRatio="true">
                     <image>
@@ -112,14 +112,14 @@
             <children>
                 <Button layoutX="229.0" layoutY="364.0" mnemonicParsing="false" text="Talk" />
                 <Button layoutX="465.0" layoutY="371.0" mnemonicParsing="false" text="PickUpSilver" />
-                <ImageView fx:id="playGroundImageView" fitHeight="541.0" fitWidth="981.0" onMouseClicked="#clickOnPerson" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="playGroundImageView" fitHeight="541.0" fitWidth="981.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@city2.png" />
                     </image>
                 </ImageView>
                 <Button fx:id="enterCastle" layoutX="489.0" layoutY="61.0" mnemonicParsing="false" onAction="#setEnterCastle" text="Enter Castle" />
                 <Button fx:id="enterTavern" layoutX="23.0" layoutY="315.0" mnemonicParsing="false" onAction="#setEnterTavern" text="Enter Tavern" />
-                <Button fx:id="enterThievesDen" layoutX="169.0" layoutY="213.0" mnemonicParsing="false" onAction="#setEnterThievesDen" text="Go to thieves Den" />
+                <Button fx:id="enterThievesDen" layoutX="68.0" layoutY="153.0" mnemonicParsing="false" onAction="#setEnterThievesDen" text="Go to thieves Den" visible="false" />
             <Button layoutX="10.0" layoutY="-1.0" mnemonicParsing="false" onAction="#changeImageOnPushForOrell" text="Change For Orell" visible="false" />
             <Button fx:id="pickUpSilver" layoutX="498.0" layoutY="380.0" mnemonicParsing="false" onAction="#pickUpSilverCastle" text="pick up Silver" visible="false" />
             <Button layoutX="142.0" layoutY="-1.0" mnemonicParsing="false" onAction="#changeImageOnPushForEloise" text="Change For Eloise" visible="false" />
@@ -132,7 +132,7 @@
             <Button fx:id="talkChepard" layoutX="637.0" layoutY="346.0" mnemonicParsing="false" onAction="#greetingMonologueChepard" text="Talk: Chepard" visible="false" />
             <Button fx:id="talkThug" layoutX="648.0" layoutY="331.0" mnemonicParsing="false" onAction="#greetingMonologueThug" text="Talk: Thug" visible="false" />
             <Button fx:id="returnCity" layoutX="842.0" layoutY="500.0" mnemonicParsing="false" onAction="#setReturnCity" text="Return to city" visible="false" />
-            <Button fx:id="pickUpAnotherSilver" layoutX="655.0" layoutY="255.0" mnemonicParsing="false" onAction="#pickUpSilverTavern" text="pick up Silver" />
+            <Button fx:id="pickUpAnotherSilver" layoutX="655.0" layoutY="255.0" mnemonicParsing="false" onAction="#pickUpSilverTavern" text="pick up Silver" visible="false" />
             <Button fx:id="pickUpJewellery" layoutX="54.0" layoutY="267.0" mnemonicParsing="false" onAction="#pickUpJewellery" text="steal Jewellery" visible="false" />
             <Button layoutX="243.0" layoutY="283.0" mnemonicParsing="false" onAction="#greetingMonologueFicsur" text="Talk: Ficsur" visible="false" />
             <Button fx:id="goToMerchantDistrict" layoutX="776.0" layoutY="331.0" mnemonicParsing="false" onAction="#goMerchantDistrict" text="Enter Merchant District" />
@@ -142,6 +142,35 @@
             <Button fx:id="talkLuna" layoutX="308.0" layoutY="106.0" mnemonicParsing="false" onAction="#greetingMonologueLuna" text="Talk: Luna" visible="false" />
             <Button fx:id="talkKathrin" layoutX="721.0" layoutY="229.0" mnemonicParsing="false" onAction="#greetingMonologueKathrin" text="Talk Kathrin" visible="false" />
             <Button fx:id="talkGuard" layoutX="605.0" layoutY="240.0" mnemonicParsing="false" onAction="#greetingMonologueGuard" text="Talk: Guard" visible="false" />
+            <Button fx:id="talkFicsur" layoutX="294.0" layoutY="364.0" mnemonicParsing="false" onAction="#greetingMonologueFicsur" text="Talk: Ficsur" visible="false" />
+            <Button fx:id="enterHouse1" layoutX="832.0" layoutY="245.0" mnemonicParsing="false" onAction="#setEnterHouse1" text="Enter House" />
+            <Button fx:id="enterHouse2" layoutX="308.0" layoutY="153.0" mnemonicParsing="false" onAction="#setEnterHouse3" text="Enter House" visible="false" />
+            <Button fx:id="enterSlums" layoutX="227.0" layoutY="256.0" mnemonicParsing="false" onAction="#setEnterSlums" text="Enter Slums" />
+            <Button fx:id="enterHouse3" layoutX="782.0" layoutY="185.0" mnemonicParsing="false" onAction="#setEnterHouse2" text="Enter House" visible="false" />
+            <Button fx:id="enterHouse4" layoutX="424.0" layoutY="331.0" mnemonicParsing="false" onAction="#setEnterHouse3" text="Enter House" visible="false" />
+            <Button fx:id="enterHouse5" layoutX="652.0" layoutY="315.0" mnemonicParsing="false" onAction="#setEnterHouse1" text="Enter House" visible="false" />
+            <Button fx:id="enterHouse9" layoutX="768.0" layoutY="371.0" mnemonicParsing="false" onAction="#setEnterHouse2" text="Enter House" visible="false" />
+            <Button fx:id="enterHouse8" layoutX="92.0" layoutY="331.0" mnemonicParsing="false" text="Enter House" visible="false" />
+            <Button fx:id="enterHouse7" layoutX="263.0" layoutY="315.0" mnemonicParsing="false" onAction="#setEnterHouse1" text="Enter House" visible="false" />
+            <Button fx:id="enterHouse6" layoutX="623.0" layoutY="204.0" mnemonicParsing="false" onAction="#setEnterHouse1" text="Enter House" visible="false" />
+            <Button fx:id="enterMine" layoutX="675.0" layoutY="138.0" mnemonicParsing="false" onAction="#setEnterMines" text="Enter Mine" />
+            <Button fx:id="talkJaques" layoutX="616.0" layoutY="169.0" mnemonicParsing="false" onAction="#greetingMonologueJaques" text="Talk: Jaques" visible="false" />
+            <Button fx:id="talkLoretta" layoutX="439.0" layoutY="279.0" mnemonicParsing="false" onAction="#greetingMonologueLoretta" text="Talk: Loretta" visible="false" />
+            <Button fx:id="talkXymerita" layoutX="307.0" layoutY="190.0" mnemonicParsing="false" onAction="#greetingMonologueXymerita" text="Talk: Xymerita" visible="false" />
+            <Button fx:id="talkKid" layoutX="105.0" layoutY="263.0" mnemonicParsing="false" onAction="#greetingMonologueKid" text="Talk: Kid" visible="false" />
+            <Button fx:id="talkHag" layoutX="841.0" layoutY="229.0" mnemonicParsing="false" onAction="#greetingMonologueHag" text="Talk: Hag" visible="false" />
+            <Button fx:id="exitCity" layoutX="66.0" layoutY="500.0" mnemonicParsing="false" onAction="#leaveCity" text="Exit city" />
+            <Button fx:id="inspect2" layoutX="257.0" layoutY="174.0" mnemonicParsing="false" onAction="#inspectionTwo" text="Inspect" visible="false" />
+            <Button fx:id="searchBody" layoutX="520.0" layoutY="362.0" mnemonicParsing="false" onAction="#pickUpJournal" text="Search Body" visible="false" />
+            <Button fx:id="inspect4" layoutX="623.0" layoutY="380.0" mnemonicParsing="false" onAction="#inspectionFour" text="Inspect" visible="false" />
+            <Button fx:id="inspect3" layoutX="555.0" layoutY="396.0" mnemonicParsing="false" onAction="#inspectionThree" text="Inspect" visible="false" />
+            <Button fx:id="inspect1" layoutX="180.0" layoutY="331.0" mnemonicParsing="false" onAction="#inspectionOne" text="Inspect" visible="false" />
+            <Button fx:id="enterHouse10" layoutX="520.0" layoutY="197.0" mnemonicParsing="false" onAction="#setEnterHouse10" text="Enter House" visible="false" />
+            <Button fx:id="talkCitizen3_1" layoutX="367.0" layoutY="174.0" mnemonicParsing="false" onAction="#greetingMonologueVillager3" text="Talk: Shady Villager" visible="false" />
+            <Button fx:id="talkCitizen2_2" layoutX="413.0" layoutY="169.0" mnemonicParsing="false" onAction="#greetingMonologueVillager2" text="Talk: Villager" visible="false" />
+            <Button fx:id="talkCitizen1_1" layoutX="392.0" layoutY="201.0" mnemonicParsing="false" onAction="#greetingMonologueVillager1" text="Talk: Villager" visible="false" />
+            <Button fx:id="talkCitizen2_1" layoutX="605.0" layoutY="182.0" mnemonicParsing="false" onAction="#greetingMonologueVillager2" text="Talk: Villager" visible="false" />
+            <Button fx:id="toBergAenDal" layoutX="520.0" layoutY="240.0" mnemonicParsing="false" onAction="#setReturnCity" text="Berg Aen Dal" visible="false" />
             </children>
         </Pane>
     </center>

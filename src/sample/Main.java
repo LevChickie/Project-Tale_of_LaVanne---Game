@@ -14,9 +14,10 @@ public class Main extends Application {
          Parent root = FXMLLoader.load(getClass().getResource("City.fxml"));
         primaryStage.setTitle("Tale Of LaVanne");
         primaryStage.setScene(new Scene(root, 1280, 720));
-        primaryStage.setFullScreen(true);
+      //  primaryStage.setFullScreen(true);
         primaryStage.show();
-       AudioClip audio = new AudioClip(this.getClass().getResource("mus_autorun.wav").toString());
+       AudioClip audio = new AudioClip(this.getClass().getResource("City.wav").toString());
+       audio.setVolume(0.25);
        audio.play();
     }
 
