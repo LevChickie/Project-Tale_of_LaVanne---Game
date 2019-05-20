@@ -25,11 +25,13 @@ public class Controller {
 
 
     //VARIABLES
-    InventoryManager inventory;
-    JournalManager journal;
-    PlayMusic backgroundMusic;
-    PlayMusic voices;
-    ChangeScene changeScene;
+    private InventoryManager inventory;
+    private JournalManager journal;
+    private PlayMusic backgroundMusic;
+    private PlayMusic voices;
+    private LoadPicture loading;
+    private ChangeScene changeScene;
+    private Image image;
 
     public TextField responseContainerA;
     public TextField responseContainerB;
@@ -40,13 +42,14 @@ public class Controller {
     public TextField nameOfPartner;
     public TextField Location;
 
-    AudioClip audio1;
+    private AudioClip audio1;
 
-    boolean end_conversation;
-    boolean activeChat = false;
-
-    boolean ficsurBeaten= false;
-    boolean murdererKilled=false;
+    private boolean end_conversation;
+    private boolean activeChat = false;
+    private boolean talked_shady = false;
+    private boolean xymeritaDead=false;
+    private boolean ficsurBeaten= false;
+    private boolean murdererKilled=false;
 
     public Button toBergAenDal = new Button("Berg Aen Dal");
     public Button exitCity = new Button("Exit city");
@@ -105,7 +108,7 @@ public class Controller {
     public Button enterSlums = new Button("Enter Slums");
 
 
-    int numberOfCurrentIndex;
+    private int numberOfCurrentIndex;
 
     public ImageView playGroundImageView;
     public ImageView heroView;
@@ -113,45 +116,47 @@ public class Controller {
 
     public int round;
 
-    ArrayList<String> itemList = new ArrayList<>();
-    ArrayList<String> toDoList = new ArrayList<>();
+    private ArrayList<String> itemList = new ArrayList<>();
+    private ArrayList<String> toDoList = new ArrayList<>();
 
-    String response;
-    String textFieldArea;
-    String activeTasks;
-    String [] activeTask = {"Enter the tavern","Speak with Cáermé"};
-    String[] dialogue;
-    String[] dialogueCaerme = {"I have a problem, there was a murder.\n We cought each suspects in time, but we are needed elsewhere.\n You seem like some'one, who could handle it.\n We pay in gold, if you're up to the task\"",
+    private  String response;
+    private  String textFieldArea;
+    private   String activeTasks;
+    private  String [] activeTask = {"Enter the tavern","Speak with Cáermé"};
+    private   String[] dialogue;
+    private  String[] dialogueCaerme = {"I have a problem, there was a murder.\n We cought each suspects in time, but we are needed elsewhere.\n You seem like some'one, who could handle it.\n We pay in gold, if you're up to the task\"",
             "Who was murdered?", "How lovely, the little elf lass needs some help. Gladly. (Get task.)(End conversation)", "I don't have the time. Bye! (End conversation.)", "A girl called Lilith. She was killed yesterday in cold blood in the Merchant District. Poor girl...", "I will help you find her killer! (Get task. End conversation.)", "I see. I want to ask something else", "Nope, not interested. (End conversation.)"};
-    String[] dialogueCaermeTask = {"Do you have any news, LaVanne?", "I have a suspect.","I need some information.","I am still investigating(End conversation)",
+    private  String[] dialogueCaermeTask = {"Do you have any news, LaVanne?", "I have a suspect.","I need some information.","I am still investigating(End conversation)",
             "Really? Tell me more, please!", "He is a scum hiding in the slums. (End conversation)(Finish)", "The killer is Xymerita, the elf girl.(End conversation)(Finish)","The murderer is Jaques.(End conversation)(Finish)", "All right... So the murder...", "Thank you kindly! (End conversation)", "I want to ask about something else.","Good bye! (End conversation)"};
 
-    String[] dialogueOrell = {"Bastien. I am not surprised. Where the problem, you're around.", "Just like you and your friends.", "Greetings as well, witcher.", "Yeah, sure. Don't care (End conversation.)", "But we want to solve them, but you seems to make the troubles.", "That makes us two. But I also solve them. For gold. (End conversation.)", "You are so untrustful, I have to laugh (End conversation.)", "I won't waste my time on you, witcher. (End conversation.)", "What brought you here?", "I was sent by Ragwald, he said you need the man.(End conversation.)", "That bold guy in Branburg paid me. (End conversation.)", "Just came by. (End conversation.)", "I told you Cáermé. We can't trust him with this task. I will solve it."};
-    String[] dialogueBartender = {"Hello there. You are with the lady and the guy? They are watching you since you arrived.", "Yes, I fought with them.", "Yes, I had... some good time with the lass", "Nope. (End conversation.)", "Really? What? Where?", "We occupied the fortress of Titus de Achtenberg.", "Gimme a beer. (End conversation.)", "Why do you care? (End conversation.)", "She's... sorry, sir... I didn't mean to...", "It was like fighting a dragon. Fervid and long (End conversation.)", "Gimme a beer (End conversation.)", "Yeah. (End conversation.)", "Wow... that's something. But they say the Dracheturm family stormed the fort.","They merely entered the empty fortress. We slayed the guards. (End conversation)","What a surprise... (End conversation)", "I would like to ask something else."};
-    String[] dialogueBardolf = {"Who are you, halfhand?", "I am Sebastien LaVanne, Lord Alain. I'm here to ask about the murder.","I'm the guy, who solve your problems for coin.","I am just looking around. (End conversation)","LaVanne? Isn't it a southern family?", "I came from Toussaint, sir (End conversation)", "Indeed, it is. (End converastion)", "I'm leaving. (End conversation)","A mercenary eh? All right. What do you need?", "I have to speak with your daughter, sir. (End conversation)","I want to ask about something (End conversation)", "I am leaving. (End conversation)"};
-    String[] dialogueEloise = {"Hello there, what brought you to me?", "Greetings to you, mylady, I'd have some questions about the murder", "The beauty of your higness, of course", "I think I will leave now(End conversation)","I see. I have some informations. Lilith was a great girl.\n Not like the other girls. She was different.\nI am pretty sure she was killed right after the word came out, that she supported the Ard Scoia'tel.\nA fake rumor, if you ask me.","Intriguiging.(End conversation)","I want to ask about something else","I leave now.(End conversation)","Oh, an other charmer. What makes you more then the others?","I am  Bastien LaVanne, son of a count of Toussaint(End conversation)","Nothing.(End conversation)","I leave now(End conversation)"};
-    String[] dialogueChepard = {"Is something wrong? What can I help you, mercenary?", "I wonder if you have some job for a veteran sword-wielder, or not.", "I must speak with the lord. (End conversation)", "Goodbye. (End conversation)","You are lucky! We need someone to find the hideout of the bandits in the slums. You look someone who could handle this problem.","Yes, I am honored to do that task for you (Get task) (End conversation", "I want to speak about something else.", "Not interested (End conversation)"};
-    String[] dialogueThug = {"He! Who ar you! It is private quarter. Whattadoyou want?", "Me? Just want a well paid job, if you know what I mean.", "I search for the murderer of that girl", "Okay. I shall leave. (End Conversation)","Really? We have a decent job! But first, you shall defeat Ficsur","Sounds like a good job. (Get task) (End conversation)", "I want to ask about something else","Not interested (End conversation)", "I would like to help you. But as you can see, we have other things to do.", "What about the blood on the floor, under the barrels? (End conversation)", "Okay. I want to ask about something else.","Than I shall leave (End conversation)" };
-    String[] dialogueThugJoined = {"Nice! You've beaten the bastard! Welcome to our family!","Thanks.(End conversation","Not interested. (End conversation)","Bye! (End conversation)"};
-    String[] dialogueFicsurTask= {"You are the new guy eh? Let's see what are you made of, halfman!","I beat you with one hand. (End conversation) (Fight Ficsur)", "Let's roll! (End conversation) (Fight Ficsur)","I am not ready yet. (End conversation)"};
-    String[] dialogueFicsurNoTask= {"Who the fuck are you? Get lost before I mess you up like a... Mess.","Thank you kindly. (End conversation)","Fuck you too. (End conversation","Ahemm... (End conversation)"};
-    String[] dialogueGaelin = {"Greetings. How can be at your assistance?","I want to know the details of the murder","I shall leave (End conversation)","Bye (End conversation)","All we know, that it was an hour ago.\n A young hooker by the name of Lilith was fatally wounded by a shortsword.\n She tried... to run, but her attacker was quicker, or she was already wounded\nIt did not seem an act of a monster, better a typival 'human works","Thanks (End conversation)","I would like to ask something else","Bye(End conversation)"};
-    String[] dialogueLuna = {"Hi! My name is Luna. What can I do for you?","Hi little girl, I need to speak to your parents (End conversation)","I think you could help me... ","So long, Luna (End conversation)","","","","","I know much about the girl. Lilith. She was a friend of mine\nShe worked in the merchant district...She sold love to people.\n She was very nice, but she had a certain style...\n which made it difficult to like her. She had recent quarrells with Xym, she talked about it yesterday...","Xym? You mean Xymerita? (End conversation)","It might be useful (End conversation)", "That's not of my concern(End conversation)"};
-    String[] dialogueKathrin = {"Hello! My name is Kathrin, I am the Leader of the Guard of Honour. What can I help you with?","I am investigating the murder","Hi, I am Bastien, Leader of the Sons of None. The pleasure is mine","I have to go (End conversation)","You should speak with Gaelin. He knows more.\nMaybe I could help you a bit... If I recall corectly, she was a hooker under the wings of Loretta.\nYou might should speak with her.","Thanks for the tip!(End conversation)", "I need to ask about something else.","Good bye! (End conversation)","So, what do you need?","I need information about the murder","I am looking for the Thieves Guild.","Good bye(End conversation)","","","","","","","","","","","","" ,"","","","","You should speak with Gaelin. He knows more.\nMaybe I could help you a bit... If I recall corectly, she was a hooker under the wings of Loretta.\nYou might should speak with her.","Thanks for the tip!(End conversation)", "I need to ask about something else.","Good bye! (End conversation)","The Thieves Guild has it's nest in the Slums. I don't know more." ,"Thanks! (End conversation)", "See you!(End coneversation)","Good bye! (End conversation)"} ;
-    String[] dialogueGuard = {"Move along citizen!","I need information about the murder.","I am investigating the murder you moron.","As you wish. (End conversation)","As everyone else and I have lost my patience!","I am the investigator.","Then fuck you. (End conversation)","I don't want trouble. (End conversation)","Oh, in that case you might know the followings.\nShe must have run for her life. She might be dead for an hour now.\nThere are some blood, and over there some more, by the crates.\nShe was... a nice girl. We should say no bad things about the dead. All we need now is a furious ghost...\n",
+    private  String[] dialogueOrell = {"Bastien. I am not surprised. Where the problem, you're around.", "Just like you and your friends.", "Greetings as well, witcher.", "Yeah, sure. Don't care (End conversation.)", "But we want to solve them, but you seems to make the troubles.", "That makes us two. But I also solve them. For gold. (End conversation.)", "You are so untrustful, I have to laugh (End conversation.)", "I won't waste my time on you, witcher. (End conversation.)", "What brought you here?", "I was sent by Ragwald, he said you need the man.(End conversation.)", "That bold guy in Branburg paid me. (End conversation.)", "Just came by. (End conversation.)", "I told you Cáermé. We can't trust him with this task. I will solve it."};
+    private  String[] dialogueBartender = {"Hello there. You are with the lady and the guy? They are watching you since you arrived.", "Yes, I fought with them.", "Yes, I had... some good time with the lass", "Nope. (End conversation.)", "Really? What? Where?", "We occupied the fortress of Titus de Achtenberg.", "Gimme a beer. (End conversation.)", "Why do you care? (End conversation.)", "She's... sorry, sir... I didn't mean to...", "It was like fighting a dragon. Fervid and long (End conversation.)", "Gimme a beer (End conversation.)", "Yeah. (End conversation.)", "Wow... that's something. But they say the Dracheturm family stormed the fort.","They merely entered the empty fortress. We slayed the guards. (End conversation)","What a surprise... (End conversation)", "I would like to ask something else."};
+    private  String[] dialogueBardolf = {"Who are you, halfhand?", "I am Sebastien LaVanne, Lord Alain. I'm here to ask about the murder.","I'm the guy, who solve your problems for coin.","I am just looking around. (End conversation)","LaVanne? Isn't it a southern family?", "I came from Toussaint, sir (End conversation)", "Indeed, it is. (End converastion)", "I'm leaving. (End conversation)","A mercenary eh? All right. What do you need?", "I have to speak with your daughter, sir. (End conversation)","I want to ask about something (End conversation)", "I am leaving. (End conversation)"};
+    private String[] dialogueEloise = {"Hello there, what brought you to me?", "Greetings to you, mylady, I'd have some questions about the murder", "The beauty of your higness, of course", "I think I will leave now(End conversation)","I see. I have some informations. Lilith was a great girl.\n Not like the other girls. She was different.\nI am pretty sure she was killed right after the word came out, that she supported the Ard Scoia'tel.\nA fake rumor, if you ask me.","Intriguiging.(End conversation)","I want to ask about something else","I leave now.(End conversation)","Oh, an other charmer. What makes you more then the others?","I am  Bastien LaVanne, son of a count of Toussaint(End conversation)","Nothing.(End conversation)","I leave now(End conversation)"};
+    private String[] dialogueChepard = {"Is something wrong? What can I help you, mercenary?", "I wonder if you have some job for a veteran sword-wielder, or not.", "I must speak with the lord. (End conversation)", "Goodbye. (End conversation)","You are lucky! We need someone to find the hideout of the bandits in the slums. You look someone who could handle this problem.","Yes, I am honored to do that task for you (Get task) (End conversation", "I want to speak about something else.", "Not interested (End conversation)"};
+    private   String[] dialogueThug = {"He! Who ar you! It is private quarter. Whattadoyou want?", "Me? Just want a well paid job, if you know what I mean.", "I search for the murderer of that girl", "Okay. I shall leave. (End conversation)","Really? We have a decent job! But first, you shall defeat Ficsur","Sounds like a good job. (Get task) (End conversation)", "I want to ask about something else","Not interested (End conversation)", "I would like to help you. But as you can see, we have other things to do.", "What about the blood on the floor, under the barrels? (End conversation)", "Okay. I want to ask about something else.","Than I shall leave (End conversation)" };
+    private  String[] dialogueThugJoined = {"Nice! You've beaten the bastard! Welcome to our family!","Thanks.(End conversation","Not interested. (End conversation)","Bye! (End conversation)"};
+    private  String[] dialogueFicsurTask= {"You are the new guy eh? Let's see what are you made of, halfman!","I beat you with one hand. (End conversation) (Fight Ficsur)", "Let's roll! (End conversation) (Fight Ficsur)","I am not ready yet. (End conversation)"};
+    private  String[] dialogueFicsurNoTask= {"Who the fuck are you? Get lost before I mess you up like a... Mess.","Thank you kindly. (End conversation)","Fuck you too. (End conversation","Ahemm... (End conversation)"};
+    private  String[] dialogueGaelin = {"Greetings. How can be at your assistance?","I want to know the details of the murder","I shall leave (End conversation)","Bye (End conversation)","All we know, that it was an hour ago.\n A young hooker by the name of Lilith was fatally wounded by a shortsword.\n She tried... to run, but her attacker was quicker, or she was already wounded\nIt did not seem an act of a monster, better a typival 'human works","Thanks (End conversation)","I would like to ask something else","Bye(End conversation)"};
+    private  String[] dialogueLuna = {"Hi! My name is Luna. What can I do for you?","Hi little girl, I need to speak to your parents (End conversation)","I think you could help me... ","So long, Luna (End conversation)","","","","","I know much about the girl. Lilith. She was a friend of mine\nShe worked in the merchant district...She sold love to people.\n She was very nice, but she had a certain style...\n which made it difficult to like her. She had recent quarrells with Xym, she talked about it yesterday...","Xym? You mean Xymerita? (End conversation)","It might be useful (End conversation)", "That's not of my concern(End conversation)"};
+    private    String[] dialogueKathrin = {"Hello! My name is Kathrin, I am the Leader of the Guard of Honour. What can I help you with?","I am investigating the murder","Hi, I am Bastien, Leader of the Sons of None. The pleasure is mine","I have to go (End conversation)","You should speak with Gaelin. He knows more.\nMaybe I could help you a bit... If I recall corectly, she was a hooker under the wings of Loretta.\nYou might should speak with her.","Thanks for the tip!(End conversation)", "I need to ask about something else.","Good bye! (End conversation)","So, what do you need?","I need information about the murder","I am looking for the Thieves Guild.","Good bye(End conversation)","","","","","","","","","","","","" ,"","","","","You should speak with Gaelin. He knows more.\nMaybe I could help you a bit... If I recall corectly, she was a hooker under the wings of Loretta.\nYou might should speak with her.","Thanks for the tip!(End conversation)", "I need to ask about something else.","Good bye! (End conversation)","The Thieves Guild has it's nest in the Slums. I don't know more." ,"Thanks! (End conversation)", "See you!(End coneversation)","Good bye! (End conversation)"} ;
+    private  String[] dialogueGuard = {"Move along citizen!","I need information about the murder.","I am investigating the murder you moron.","As you wish. (End conversation)","As everyone else and I have lost my patience!","I am the investigator.","Then fuck you. (End conversation)","I don't want trouble. (End conversation)","Oh, in that case you might know the followings.\nShe must have run for her life. She might be dead for an hour now.\nThere are some blood, and over there some more, by the crates.\nShe was... a nice girl. We should say no bad things about the dead. All we need now is a furious ghost...\n",
                     "I see, thank you (End conversation)","That's not much. Maybe it will help a bit though. (End conversation)","Bye! (End conversation)" };
-    String[] dialogueVillager1= {"Move along! Leave me be!", "All right! All right (End conversation)", "Give me all your money first!(End conversation)", "I leave, then (End conversation)"};
-    String[] dialogueVillager2= {"You are tresspassing! I will call the guards!", "All right! All right (End conversation)", "Give me all your money or I will slash you in pieces!(End conversation)", "I leave, then (End conversation)"};
-    String[] dialogueLoretta = {"Greetings, sire! I heard you are investigating this hineous act!\nYou must find the bloody killer! Please, kill him on sight if you find him.","Tell me about her, and what you know about the murder","For the right price I will make him suffer.","I'm leaving now.","Of course, if it helps you, I give you every detail. She was quite a girl. She had standards.\nI respected her elegance, she took only those offers which one was quite promising.\nA knight, a rich merchant, a spellcaster... Maybe that's the reason she was killed. The bastards!", "Thanks! (End conversation)", "I wanted to talk with you about something else","Goodbye (End conversation)",
+    private  String[] dialogueVillager1= {"Move along! Leave me be!", "All right! All right (End conversation)", "Give me all your money first!(End conversation)", "I leave, then (End conversation)"};
+    private String[] dialogueVillager2= {"You are tresspassing! I will call the guards!", "All right! All right (End conversation)", "Give me all your money or I will slash you in pieces!(End conversation)", "I leave, then (End conversation)"};
+    private String[] dialogueLoretta = {"Greetings, sire! I heard you are investigating this hineous act!\nYou must find the bloody killer! Please, kill him on sight if you find him.","Tell me about her, and what you know about the murder","For the right price I will make him suffer.","I'm leaving now.","Of course, if it helps you, I give you every detail. She was quite a girl. She had standards.\nI respected her elegance, she took only those offers which one was quite promising.\nA knight, a rich merchant, a spellcaster... Maybe that's the reason she was killed. The bastards!", "Thanks! (End conversation)", "I wanted to talk with you about something else","Goodbye (End conversation)",
             "I am ready to pay... With gold, or with my body. Or both, if the screams of the bastards will be heard through the city","In this case I pity him a bit... (Get task)(End conversation)","That's not worth it to me. (End conversation)","I'm leaving (End conversation)"};
-    String[] dialogueLorettaKilledMurderer = {"Have you killed that bastard yet?","Yes, you should have heard his screams","Yes, I did.","I will come back later!","Oh my hero! What can I bring you for your service?","Money will do. (End conversation)","Nothing would be more valueable than yourself, my lady (Make love)(End conversation)","Nothing, it was my pleasure (End conversation)","Great! What could I give you for your service?","Money will do. (End conversation)","Nothing would be more valueable than yourself, my lady (Make love)(End conversation)","Nothing, it was my pleasure (End conversation)"};
-    String[] dialogueLorettaNotKilledMurderer = {"Have you killed that bastard yet?","Could you tell me something about her?","I'm on it (End conversation)", "I'll leave now","Of course, if it helps you, I give you every detail. She was quite a girl. She had standards.\nI respected her elegance, she took only those offers which one was quite promising...\nA knight, a rich merchant, a spellcaster... Maybe that's the reason she was killed. The bastards!","Thanks (End conversation","I will find the murderer (End conversation)","I leave now(End conversation)"};
-    String[] dialogueXymerita = {"Greetings, knight! You came to find the murderer?","Yes, I did. Can you tell me something about it?", "No, I came for you, pretty one","I'm leaving(End conversation)","Of course! I was working and I saw her. I saw here in the distance.\nNot the murder. But I know that some shady guy met with her.\nI am not sure if it was about work or something... more. She was quite mysterious to us all.", "I see, thanks.(End conversation)","I wanted to ask something else","Good bye! (End conversation)"
+    private  String[] dialogueLorettaKilledMurderer = {"Have you killed that bastard yet?","Yes, you should have heard his screams","Yes, I did.","I will come back later!","Oh my hero! What can I bring you for your service?","Money will do. (End conversation)","Nothing would be more valueable than yourself, my lady (Make love)(End conversation)","Nothing, it was my pleasure (End conversation)","Great! What could I give you for your service?","Money will do. (End conversation)","Nothing would be more valueable than yourself, my lady (Make love)(End conversation)","Nothing, it was my pleasure (End conversation)"};
+    private   String[] dialogueLorettaNotKilledMurderer = {"Have you killed that bastard yet?","Could you tell me something about her?","I'm on it (End conversation)", "I'll leave now","Of course, if it helps you, I give you every detail. She was quite a girl. She had standards.\nI respected her elegance, she took only those offers which one was quite promising...\nA knight, a rich merchant, a spellcaster... Maybe that's the reason she was killed. The bastards!","Thanks (End conversation","I will find the murderer (End conversation)","I leave now(End conversation)"};
+    private String[] dialogueXymerita = {"Greetings, knight! You came to find the murderer?","Yes, I did. Can you tell me something about it?", "No, I came for you, pretty one","I'm leaving(End conversation)","Of course! I was working and I saw her. I saw here in the distance.\nNot the murder. But I know that some shady guy met with her.\nI am not sure if it was about work or something... more. She was quite mysterious to us all.", "I see, thanks.(End conversation)","I wanted to ask something else","Good bye! (End conversation)"
             ,"Oh, it was really nice of you! I know a place which is less... Noisy.", "Lead the way, my lady.(End conversation) (Pay hooker)","Not this time, I have thing to do(End conversation)","I have to leave (End conversation)"};
-    String[] dialogueJaques = {"She earned it. She was a ruthless prostitute. Whatever they say, it's not true. She was a wench.","Why do you think so?","You just incriminating yourself(End conversation)","I have no time for this.(End conversation)","How? She was a scheming wench! Nothing else! Everyone hated her, but now she's dead,\n they fear their happiness would made them suspicious.","Intriguing(End conversation)","I heard enough. (End conversation)","I have not time for you(End conversation)"};
-    String[] dialogueHag = {"She... was killed by a slim shadow! I saw them fighting.\n Then she run here, but soon she fell to the ground. The shadow was disappeared by the time.","A shadow?","What else did you see, old woman?", "I have no time for this.(End conversation)","Indeed. A shadow murdered her. A shadow... {with face of Stannis Baratheon!}","You are mad. (End conversation)","Then we should need a witcher... If you are correct(End conversation)","Old fool (End conversation)","I saw... A slim shadow, wielding a shortsword and cutting the lady. She cried out and ran here.","I see...(End conversation)","Maybe useful. Maybe not(End conversation)","Old fool (End conversation)"};
-    String[] dialogueKid = {"Hi there! You my daddy?", "No. Kid move along", "Yes, I am your dad, now go, fetch some wine to Father! (End conversation)","I have no time for your foolishness. (End conversation)","I thought you might be. You are alike my ma's discription", "Sorry boy. (End conversation)","I was just joking, I'm your dad, no go, bring me some wine!(End conversation)","I better leave.(End conversation)","Yes! Yes!"};
-    String[] dialogueAssassin = {"This is not what it looks like. I did not murder anyone", "Then what it looks like?","You might right. I won't lock you up... for now (End conversation)","You'll only die with dirty conscience.(Kill him)(End conversation)","It was not me. I seen the murder. I was about to visit her, when I heared her screams.\n I ran as fast I could, and there I saw an elf woman fighting with her.\nWhen the elf saw my blade, she turned away, and Lilith ran away. But she was a damn good fighter, I almost escaped with my life.\nThis is my blood.","An elf woman. I am not lock you up for now(End conversation)"
+    private   String[] dialogueXymeritaBlamed = {"Greetings, knight! You came to find the murderer?","I did.","I found a man who blamed you for the murderer","I came for you, my sweet.","Did you kill him?\nPlease tell me, you did so! That monster deserves death!","No, I did not kill him.(End conversation)", "I killed him.(End conversation)","I cannot speak about it. Bye! (End conversation)","Me? That bastard lied to you! I did nothing, she was my best friend!\nI could never hurt her! Please, don't say you believe him!","I guess I do.(End conversation)","No, I'm not.(End conversation)","Your lies won't save your life!(End conversation)(Kill her)",
+            "Oh, it was really nice of you! I know a place which is less... Noisy.", "Lead the way, my lady.(End conversation) (Pay hooker)","Not this time, I have thing to do(End conversation)","I have to leave (End conversation)"};
+    private  String[] dialogueJaques = {"She earned it. She was a ruthless prostitute. Whatever they say, it's not true. She was a wench.","Why do you think so?","You just incriminating yourself(End conversation)","I have no time for this.(End conversation)","How? She was a scheming wench! Nothing else! Everyone hated her, but now she's dead,\n they fear their happiness would made them suspicious.","Intriguing(End conversation)","I heard enough. (End conversation)","I have not time for you(End conversation)"};
+    private String[] dialogueHag = {"She... was killed by a slim shadow! I saw them fighting.\n Then she run here, but soon she fell to the ground. The shadow was disappeared by the time.","A shadow?","What else did you see, old woman?", "I have no time for this.(End conversation)","Indeed. A shadow murdered her. A shadow... {with face of Stannis Baratheon!}","You are mad. (End conversation)","Then we should need a witcher... If you are correct(End conversation)","Old fool (End conversation)","I saw... A slim shadow, wielding a shortsword and cutting the lady. She cried out and ran here.","I see...(End conversation)","Maybe useful. Maybe not(End conversation)","Old fool (End conversation)"};
+    private   String[] dialogueKid = {"Hi there! You my daddy?", "No. Kid move along", "Yes, I am your dad, now go, fetch some wine to Father! (End conversation)","I have no time for your foolishness. (End conversation)","I thought you might be. You are alike my ma's discription", "Sorry boy. (End conversation)","I was just joking, I'm your dad, no go, bring me some wine!(End conversation)","I better leave.(End conversation)","Yes! Yes!"};
+    private    String[] dialogueAssassin = {"This is not what it looks like. I did not murder anyone", "Then what it looks like?","You might right. I won't lock you up... for now (End conversation)","You'll only die with dirty conscience.(Kill him)(End conversation)","It was not me. I seen the murder. I was about to visit her, when I heared her screams.\n I ran as fast I could, and there I saw an elf woman fighting with her.\nWhen the elf saw my blade, she turned away, and Lilith ran away. But she was a damn good fighter, I almost escaped with my life.\nThis is my blood.","An elf woman. I am not lock you up for now(End conversation)"
             ,"Always the elfs. Maybe that's why the whole racism shit started.(End conversation)","You murdered her in cold blood, I shall do the same.(End conversation)(Kill him)","Please, you must listen to me!","Enough! I will come back. (End conversation)"};
 //I won't lock you up... for now
 
@@ -321,214 +326,129 @@ public class Controller {
     }
 
     public void changeImageOnPushForOrell() {
-        try {
             nameOfPartner.setText("Orell, the Witcher");
-            File newFile = new File("C:\\Users\\MrGamble\\IdeaProjects\\Tale of LaVanne correcting\\src\\sample\\Orell.png");
-            BufferedImage bufferedImage = ImageIO.read(newFile);
-            Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+            loading = new LoadPicture("Orell");
+            image = loading.getItem();
             speechPartnerView.setImage(image);
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
     }
 
     public void changeImageOnPushForBartender() {
-        try {
             nameOfPartner.setText("Borisz, the bartender");
-            File newFile = new File("C:\\Users\\MrGamble\\IdeaProjects\\Tale of LaVanne correcting\\src\\sample\\bartender.png");
-            BufferedImage bufferedImage = ImageIO.read(newFile);
-            Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+            loading = new LoadPicture("bartender");
+            image = loading.getItem();
             speechPartnerView.setImage(image);
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
+
     }
 
     public void changeImageOnPushForCaerme() {
-        try {
             nameOfPartner.setText("Cáermé");
-            File newFile = new File("C:\\Users\\MrGamble\\IdeaProjects\\Tale of LaVanne correcting\\src\\sample\\Aenyelle.png");
-            BufferedImage bufferedImage = ImageIO.read(newFile);
-            Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+            loading = new LoadPicture("Aenyelle");
+            image = loading.getItem();
             speechPartnerView.setImage(image);
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
+
     }
 
     public void changeImageOnPushForEloise() {
-        try {
             nameOfPartner.setText("Eloise Alain");
-            File newFile = new File("C:\\Users\\MrGamble\\IdeaProjects\\Tale of LaVanne correcting\\src\\sample\\Eloise Bardolf.png");
-            BufferedImage bufferedImage = ImageIO.read(newFile);
-            Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+            loading = new LoadPicture("Eloise Bardolf");
+            image = loading.getItem();
             speechPartnerView.setImage(image);
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
     }
     public void changeImageOnPushForBardolf() {
-        try {
             nameOfPartner.setText("Bardolf Alain");
-            File newFile = new File("C:\\Users\\MrGamble\\IdeaProjects\\Tale of LaVanne correcting\\src\\sample\\Bardolf Alain.png");
-            BufferedImage bufferedImage = ImageIO.read(newFile);
-            Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+        loading = new LoadPicture("Bardolf Alain");
+        image = loading.getItem();
             speechPartnerView.setImage(image);
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
     }
     public void changeImageOnPushForChepard() {
-        try {
             nameOfPartner.setText("Sommander Chepard");
-            File newFile = new File("C:\\Users\\MrGamble\\IdeaProjects\\Tale of LaVanne correcting\\src\\sample\\sommander Chepard.png");
-            BufferedImage bufferedImage = ImageIO.read(newFile);
-            Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+        loading = new LoadPicture("Sommander Chepard");
+        image = loading.getItem();
             speechPartnerView.setImage(image);
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
     }
     public void changeImageOnPushForThug() {
-        try {
-            nameOfPartner.setText("Doris");
-            File newFile = new File("C:\\Users\\MrGamble\\IdeaProjects\\Tale of LaVanne correcting\\src\\sample\\doris.png");
-            BufferedImage bufferedImage = ImageIO.read(newFile);
-            Image image = SwingFXUtils.toFXImage(bufferedImage, null);
-            speechPartnerView.setImage(image);
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
+        nameOfPartner.setText("Doris");
+        loading = new LoadPicture("doris");
+        image = loading.getItem();
+        speechPartnerView.setImage(image);
+
     }
     public void changeImageOnPushForFicsur() {
-        try {
             nameOfPartner.setText("Ficsur");
-            File newFile = new File("C:\\Users\\MrGamble\\IdeaProjects\\Tale of LaVanne correcting\\src\\sample\\ficsur.png");
-            BufferedImage bufferedImage = ImageIO.read(newFile);
-            Image image = SwingFXUtils.toFXImage(bufferedImage, null);
-            speechPartnerView.setImage(image);
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
+        loading = new LoadPicture("ficsur");
+        image = loading.getItem();speechPartnerView.setImage(image);
     }
     public void changeImageOnPushForGuard() {
-        try {
             nameOfPartner.setText("Berg Aen Dal Guard");
-            File newFile = new File("C:\\Users\\MrGamble\\IdeaProjects\\Tale of LaVanne correcting\\src\\sample\\guard.png");
-            BufferedImage bufferedImage = ImageIO.read(newFile);
-            Image image = SwingFXUtils.toFXImage(bufferedImage, null);
-            speechPartnerView.setImage(image);
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
+        loading = new LoadPicture("guard");
+        image = loading.getItem();
+        speechPartnerView.setImage(image);
     }
     public void changeImageOnPushForGaelin()
     {
-        try {
             nameOfPartner.setText("Gaelin");
-            File newFile = new File("C:\\Users\\MrGamble\\IdeaProjects\\Tale of LaVanne correcting\\src\\sample\\gaelin.png");
-            BufferedImage bufferedImage = ImageIO.read(newFile);
-            Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+            loading = new LoadPicture("gaelin");
+            image = loading.getItem();
             speechPartnerView.setImage(image);
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
     }
     public void changeImageOnPushForLuna()
     {
-        try {
             nameOfPartner.setText("Luna");
-            File newFile = new File("C:\\Users\\MrGamble\\IdeaProjects\\Tale of LaVanne correcting\\src\\sample\\luna.png");
-            BufferedImage bufferedImage = ImageIO.read(newFile);
-            Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+        loading = new LoadPicture("luna");
+        image = loading.getItem();
             speechPartnerView.setImage(image);
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
+
     }
     public void changeImageOnPushForKathrin()
     {
-        try {
             nameOfPartner.setText("Kathrin");
-            File newFile = new File("C:\\Users\\MrGamble\\IdeaProjects\\Tale of LaVanne correcting\\src\\sample\\kathrin.png");
-            BufferedImage bufferedImage = ImageIO.read(newFile);
-            Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+        loading = new LoadPicture("kathrin");
+        image = loading.getItem();
             speechPartnerView.setImage(image);
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
     }
     public void changeImageOnPushForXymerita()
     {
-        try {
             nameOfPartner.setText("Xymerita");
-            File newFile = new File("C:\\Users\\MrGamble\\IdeaProjects\\Tale of LaVanne correcting\\src\\sample\\lady.png");
-            BufferedImage bufferedImage = ImageIO.read(newFile);
-            Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+        loading = new LoadPicture("lady");
+        image = loading.getItem();
             speechPartnerView.setImage(image);
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
     }
     public void changeImageOnPushForLoretta()
     {
-        try {
             nameOfPartner.setText("Loretta");
-            File newFile = new File("C:\\Users\\MrGamble\\IdeaProjects\\Tale of LaVanne correcting\\src\\sample\\loretta.png");
-            BufferedImage bufferedImage = ImageIO.read(newFile);
-            Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+        loading = new LoadPicture("loretta");
+        image = loading.getItem();
             speechPartnerView.setImage(image);
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
     }
     public void changeImageOnPushForJaques()
     {
-        try {
             nameOfPartner.setText("Jaques");
-            File newFile = new File("C:\\Users\\MrGamble\\IdeaProjects\\Tale of LaVanne correcting\\src\\sample\\jaques.png");
-            BufferedImage bufferedImage = ImageIO.read(newFile);
-            Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+        loading = new LoadPicture("jaques");
+        image = loading.getItem();
             speechPartnerView.setImage(image);
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
     }
     public void changeImageOnPushForHag()
     {
-        try {
             nameOfPartner.setText("Old lady");
-            File newFile = new File("C:\\Users\\MrGamble\\IdeaProjects\\Tale of LaVanne correcting\\src\\sample\\hag.png");
-            BufferedImage bufferedImage = ImageIO.read(newFile);
-            Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+            loading = new LoadPicture("hag");
+            image = loading.getItem();
             speechPartnerView.setImage(image);
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
+
     }
     public void changeImageOnPushForKid()
     {
-        try {
             nameOfPartner.setText("Kid");
-            File newFile = new File("C:\\Users\\MrGamble\\IdeaProjects\\Tale of LaVanne correcting\\src\\sample\\boy.png");
-            BufferedImage bufferedImage = ImageIO.read(newFile);
-            Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+        loading = new LoadPicture("boy");
+        image = loading.getItem();
             speechPartnerView.setImage(image);
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
+
     }
     public void changeImageOnPushForVillager()
     {
-        try {
             nameOfPartner.setText("Villager");
-            File newFile = new File("C:\\Users\\MrGamble\\IdeaProjects\\Tale of LaVanne correcting\\src\\sample\\Othovir.png");
-            BufferedImage bufferedImage = ImageIO.read(newFile);
-            Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+            loading = new LoadPicture("Othovir");
+            image = loading.getItem();
             speechPartnerView.setImage(image);
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
     }
 
 
@@ -537,7 +457,6 @@ public class Controller {
 
     //MAPPING
     public void setEnterTavern() {
-        try {
             playGroundImageView.setScaleY(1.12);
             playGroundImageView.setScaleX(1);
             playGroundImageView.setScaleZ(1);
@@ -569,7 +488,6 @@ public class Controller {
             goToMerchantDistrict.setVisible(false);
             enterLibrary.setVisible(false);
             enterMurderScene.setVisible(false);
-
 
             enterHouse1.setVisible(false);
             enterHouse2.setVisible(false);
@@ -604,8 +522,6 @@ public class Controller {
             journal.removeItem("Enter the Tavern");
             ToDoList.setText(journal.writeJournal());
 
-            backgroundMusic = new PlayMusic("Tavern");
-            backgroundMusic.play();
             voices = new PlayMusic("povertyAndFamine");
             voices.audio.setVolume(0.2);
             voices.play();
@@ -614,13 +530,9 @@ public class Controller {
             Location.setText(changeScene.changeName());
             playGroundImageView.setImage(changeScene.changePlace());
 
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
     }
 
     public void setReturnCity() {
-        try {
             playGroundImageView.setScaleY(1.28);
             playGroundImageView.setScaleX(1);
             playGroundImageView.setScaleZ(1);
@@ -687,13 +599,10 @@ public class Controller {
             changeScene = new ChangeScene("city");
             Location.setText(changeScene.changeName());
             playGroundImageView.setImage(changeScene.changePlace());
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
+
     }
 
     public void setEnterCastle() {
-        try {
             playGroundImageView.setScaleY(1);
             playGroundImageView.setScaleX(1.02);
             playGroundImageView.setScaleZ(1);
@@ -762,13 +671,10 @@ public class Controller {
             changeScene = new ChangeScene("castle");
             Location.setText(changeScene.changeName());
             playGroundImageView.setImage(changeScene.changePlace());
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
+
     }
 
     public void setEnterThievesDen() {
-        try {
             playGroundImageView.setScaleY(1);
             playGroundImageView.setScaleX(1.02);
             playGroundImageView.setScaleZ(1);
@@ -840,13 +746,10 @@ public class Controller {
             changeScene = new ChangeScene("thieves den");
             Location.setText(changeScene.changeName());
             playGroundImageView.setImage(changeScene.changePlace());
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
+
     }
 
     public void goMerchantDistrict() {
-        try {
             playGroundImageView.setScaleY(1);
             playGroundImageView.setScaleX(1.05);
             playGroundImageView.setScaleZ(1);
@@ -913,12 +816,9 @@ public class Controller {
             changeScene = new ChangeScene("merchant");
             Location.setText(changeScene.changeName());
             playGroundImageView.setImage(changeScene.changePlace());
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
+
     }
     public void setGoToMurderScene() {
-        try {
             playGroundImageView.setScaleY(1);
             playGroundImageView.setScaleX(1);
             playGroundImageView.setScaleZ(1);
@@ -983,15 +883,27 @@ public class Controller {
             talkCitizen2_2.setVisible(false);
             talkCitizen3_1.setVisible(false);
 
-            changeScene = new ChangeScene("murder scene");
-            Location.setText(changeScene.changeName());
-            playGroundImageView.setImage(changeScene.changePlace());
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
+            inventory = new InventoryManager(Inventory.getText());
+            if(inventory.writeInventory().contains("Lilith"))
+            {
+                searchBody.setVisible(false);
+            }
+
+            if(xymeritaDead)
+            {
+                talkXymerita.setVisible(false);
+                changeScene = new ChangeScene("murder scene (Xym dead)");
+                Location.setText(changeScene.changeName());
+                playGroundImageView.setImage(changeScene.changePlace());
+            }
+            else {
+                changeScene = new ChangeScene("murder scene");
+                Location.setText(changeScene.changeName());
+                playGroundImageView.setImage(changeScene.changePlace());
+            }
+
     }
     public void setEnterLibrary() {
-        try {
             playGroundImageView.setScaleY(1);
             playGroundImageView.setScaleX(1);
             playGroundImageView.setScaleZ(1);
@@ -1058,12 +970,9 @@ public class Controller {
             changeScene = new ChangeScene("library");
             Location.setText(changeScene.changeName());
             playGroundImageView.setImage(changeScene.changePlace());
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
+
     }
     public void setEnterHouse1() {
-        try {
             playGroundImageView.setScaleY(1);
             playGroundImageView.setScaleX(1);
             playGroundImageView.setScaleZ(1);
@@ -1131,12 +1040,9 @@ public class Controller {
             changeScene = new ChangeScene("house 1");
             Location.setText(changeScene.changeName());
             playGroundImageView.setImage(changeScene.changePlace());
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
+
     }
     public void setEnterHouse2() {
-        try {
             playGroundImageView.setScaleY(1);
             playGroundImageView.setScaleX(1);
             playGroundImageView.setScaleZ(1);
@@ -1203,12 +1109,9 @@ public class Controller {
             changeScene = new ChangeScene("house 2");
             Location.setText(changeScene.changeName());
             playGroundImageView.setImage(changeScene.changePlace());
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
+
     }
     public void setEnterHouse3() {
-        try {
             playGroundImageView.setScaleY(1);
             playGroundImageView.setScaleX(1);
             playGroundImageView.setScaleZ(1);
@@ -1275,12 +1178,9 @@ public class Controller {
             changeScene = new ChangeScene("house 3");
             Location.setText(changeScene.changeName());
             playGroundImageView.setImage(changeScene.changePlace());
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
+
     }
     public void setEnterHouse10() {
-        try {
             playGroundImageView.setScaleY(1);
             playGroundImageView.setScaleX(1);
             playGroundImageView.setScaleZ(1);
@@ -1343,8 +1243,9 @@ public class Controller {
             talkCitizen2_2.setVisible(false);
 
             Location.setText("Berg Aen Dal, house (4)");
-            if(murdererKilled ==true)
+            if(murdererKilled)
             {
+                talkCitizen3_1.setVisible(false);
                 changeScene = new ChangeScene("murderer (dead)");
                 Location.setText(changeScene.changeName());
                 playGroundImageView.setImage(changeScene.changePlace());
@@ -1354,16 +1255,13 @@ public class Controller {
                 Location.setText(changeScene.changeName());
                 playGroundImageView.setImage(changeScene.changePlace());
             }
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
+
     }
     public void setEnterMines() {
-
+       changeImageOnPushForGuard();
        dialogueContainer.setText("Halt! It is forbidden to enter the mines after the bloodbath in there.");
     }
     public void setEnterSlums() {
-        try {
             playGroundImageView.setScaleY(1);
             playGroundImageView.setScaleX(1);
             playGroundImageView.setScaleZ(1);
@@ -1429,12 +1327,9 @@ public class Controller {
             changeScene = new ChangeScene("slums");
             Location.setText(changeScene.changeName());
             playGroundImageView.setImage(changeScene.changePlace());
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
+
         }
-    }
     public void leaveCity() {
-        try {
             playGroundImageView.setScaleY(1);
             playGroundImageView.setScaleX(1);
             playGroundImageView.setScaleZ(1);
@@ -1501,9 +1396,7 @@ public class Controller {
             changeScene = new ChangeScene("aedirn");
             Location.setText(changeScene.changeName());
             playGroundImageView.setImage(changeScene.changePlace());
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
+
     }
 
 
@@ -1563,11 +1456,18 @@ public class Controller {
         pickUpJewellery.setVisible(false);
         Inventory.setText(inventory.writeInventory());
     }
+    public void buyBeer()
+    {
+        voices= new PlayMusic("bartender");
+        voices.play();
+        loseSilver();
+        saveGame();
+        dialogueContainer.setText("Game Saved!");
+    }
     public void loseSilver() {
         inventory = new InventoryManager(Inventory.getText());
-        inventory.removeItem("\nSilver");
+        inventory.removeItem("Silver");
         Inventory.setText(inventory.writeInventory());
-        return;
     }
 
 
@@ -1590,7 +1490,7 @@ public class Controller {
         voices.play();
         changeImageOnPushForCaerme();
         String list = ToDoList.getText();
-        if(list.contains("Find the murderer")||murdererKilled==true)
+        if(list.contains("Find the murderer")||murdererKilled)
         {
             dialogue =dialogueCaermeTask;
         }
@@ -1683,7 +1583,7 @@ public class Controller {
         activeChat = true;
         numberOfCurrentIndex = 0;
         textFieldArea = "";
-        if(ficsurBeaten==false) {
+        if(!ficsurBeaten) {
             dialogue = dialogueThug;
             textFieldArea += "\"What are you lurking around, halfhand?\n";
         }
@@ -1776,7 +1676,9 @@ public class Controller {
         voices.play();
         changeImageOnPushForXymerita();
         activeChat = true;
+        if(!talked_shady)
         dialogue = dialogueXymerita;
+        else {dialogue = dialogueXymeritaBlamed;}
         numberOfCurrentIndex = 0;
         textFieldArea = "";
         textFieldArea += "";
@@ -1789,7 +1691,7 @@ public class Controller {
         voices.play();
         changeImageOnPushForLoretta();
         activeChat = true;
-        if(murdererKilled==true)
+        if(murdererKilled)
         {
             dialogue=dialogueLorettaKilledMurderer;
         }
@@ -1886,10 +1788,10 @@ public class Controller {
     }
 
 
-    public void Dialogue() throws Exception {
+    public void Dialogue()  {
 
         round++;
-        if (activeChat == false) {
+        if (!activeChat ) {
             return;
         }
         textFieldArea += dialogue[numberOfCurrentIndex];
@@ -1900,7 +1802,7 @@ public class Controller {
         textFieldArea = "";
     }
 
-    public void goodByeMonologue() throws InterruptedException {
+    public void goodByeMonologue() {
         if (dialogue == dialogueCaerme && !ToDoList.getText().contains("Find the murderer")) {
             changeImageOnPushForOrell();
             dialogue = dialogueOrell;
@@ -1947,7 +1849,7 @@ public class Controller {
             voices= new PlayMusic("VillagerF2");
             voices.play();
         }
-        else if(nameOfPartner.getText().contains("Xymerita"))
+        else if(nameOfPartner.getText().contains("Xymerita")&&!xymeritaDead)
         {
             voices= new PlayMusic("SorceressYes1");
             voices.play();
@@ -1957,7 +1859,7 @@ public class Controller {
             voices= new PlayMusic("ShandrisWhat1");
             voices.play();
         }
-        else if(nameOfPartner.getText().contains("Loretta")&&murdererKilled==true)
+        else if(nameOfPartner.getText().contains("Loretta")&&murdererKilled)
         {
             voices= new PlayMusic("ShandrisYes1");
             getGold();
@@ -1986,7 +1888,7 @@ public class Controller {
         }
         else if(nameOfPartner.getText().contains("Ficsur"))
         {
-            voices= new PlayMusic("BanditYes3");
+            voices= new PlayMusic("BanditWhat2");
             voices.play();
         }
         else if(nameOfPartner.getText().contains("Borisz"))
@@ -1994,20 +1896,20 @@ public class Controller {
             voices= new PlayMusic("HeroAlchemistWhat4");
             voices.play();
         }
-        else if(nameOfPartner.getText().contains("Villager")&&Location.getText().contains("4")&&murdererKilled==false)
+        else if(nameOfPartner.getText().contains("Villager")&&Location.getText().contains("4")&&!murdererKilled)
         {
             voices= new PlayMusic("GarithosPissed3");
             voices.play();
         }
 
 
-       if(murdererKilled==true&&nameOfPartner.getText().contains("Villager")&&Location.getText().contains("4"))
+       if(murdererKilled&&nameOfPartner.getText().contains("Villager")&&Location.getText().contains("4"))
            dialogueContainer.setText("Aaaaaaarrgghh!");
         else{   dialogueContainer.setText("Until next time!");}
     }
 
     public void clickOnDialA() throws Exception {
-        if (activeChat == false) {
+        if (!activeChat) {
             return;
         }
         response = responseContainerA.getText();
@@ -2053,6 +1955,9 @@ public class Controller {
                 loseSilver();
                 ToDoList.setText(activeTasks);
             }
+            else if (Location.getText().contains("4")) {
+                talked_shady=true;
+            }
             else if (nameOfPartner.getText().contains("Ficsur")&& response.contains("Fight Ficsur")){
                 journal = new JournalManager(ToDoList.getText());
                 journal.removeItem("Beat Ficsur!");
@@ -2062,7 +1967,7 @@ public class Controller {
                 voices.play();
                 ficsurBeaten=true;
             }
-            else if(nameOfPartner.getText().contains("Doris")&&ficsurBeaten==true)
+            else if(nameOfPartner.getText().contains("Doris")&&ficsurBeaten)
             {
                 journal=new JournalManager(ToDoList.getText());
                 journal.removeItem("Join the Thieves Guild.");
@@ -2127,17 +2032,31 @@ public class Controller {
                 ToDoList.setText(activeTasks);
             }
             else if (Location.getText().contains("4")&& response.contains("Kill")) {
-                murdererKilled = true;
-                voices = new PlayMusic("PeasantDeath");
-                voices.play();
-                File newFile = new File("C:\\Users\\MrGamble\\IdeaProjects\\Tale of LaVanne correcting\\src\\sample\\DeadMurderer.png");
-                BufferedImage bufferedImage = ImageIO.read(newFile);
-                Image image = SwingFXUtils.toFXImage(bufferedImage, null);
-                playGroundImageView.setImage(image);
-                journal = new JournalManager(ToDoList.getText());
-                journal.removeItem("Find the murderer!");
-                ToDoList.setText(journal.writeJournal());
-                talkCitizen3_1.setVisible(false);
+                if(inventory.writeInventory().contains("Longsword"))
+                {
+                    murdererKilled = true;
+                    voices = new PlayMusic("PeasantDeath");
+                    voices.play();
+                    loading = new LoadPicture("DeadMurderer");
+                    image = loading.getItem();
+                    playGroundImageView.setImage(image);
+                    journal = new JournalManager(ToDoList.getText());
+                    journal.removeItem("Find the murderer!");
+                    ToDoList.setText(journal.writeJournal());
+                    talkCitizen3_1.setVisible(false);
+                }
+                else
+                {
+                    voices = new PlayMusic("HeroPaladinDeath");
+                    voices.play();
+                    loading = new LoadPicture("died");
+                    image = loading.getItem();
+                    playGroundImageView.setImage(image);
+                    returnCity.setVisible(false);
+                    inspect3.setVisible(false);
+                    talkCitizen3_1.setVisible(false);
+                    exitCity.setVisible(false);
+                }
             }
             if (nameOfPartner.getText().contains("Ficsur")&& response.contains("Fight Ficsur")){
                 journal = new JournalManager(ToDoList.getText());
@@ -2185,20 +2104,54 @@ public class Controller {
 
         response = responseContainerC.getText();
         if (nameOfPartner.getText().contains("Villager")&& response.contains("Kill")) {
-            murdererKilled=true;
-            voices =new PlayMusic("PeasantDeath");
+            inventory = new InventoryManager(Inventory.getText());
+           if (inventory.writeInventory().contains("Longsword")) {
+                  murdererKilled = true;
+              voices = new PlayMusic("PeasantDeath");
+               voices.play();
+               loading = new LoadPicture("deadmurd");
+               image = loading.getItem();
+                playGroundImageView.setImage(image);
+                journal = new JournalManager(ToDoList.getText());
+                if (journal.writeJournal().contains("Find the murderer")) {
+                    journal.removeItem("Find the murderer!");
+                }
+                if (journal.writeJournal().contains("Kill the murderer!")) {
+                    journal.removeItem("Kill the murderer!");
+                }
+                ToDoList.setText(journal.writeJournal());
+               talkCitizen3_1.setVisible(false);
+            }
+            else
+            {
+                voices = new PlayMusic("HeroPaladinDeath");
+                voices.play();
+                loading = new LoadPicture("died");
+                image = loading.getItem();
+                playGroundImageView.setImage(image);
+                returnCity.setVisible(false);
+                inspect3.setVisible(false);
+                talkCitizen3_1.setVisible(false);
+                exitCity.setVisible(false);
+          }
+        }
+        else if(nameOfPartner.getText().contains("Xymerita")&&response.contains("Kill her"))
+        {
+            voices = new PlayMusic("SorceressDeath");
             voices.play();
-            File newFile = new File("C:\\Users\\MrGamble\\IdeaProjects\\Tale of LaVanne correcting\\src\\sample\\DeadMurderer.png");
-            BufferedImage bufferedImage = ImageIO.read(newFile);
-            Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+            xymeritaDead=true;
+            loading = new LoadPicture("xymdead");
+            image = loading.getItem();
             playGroundImageView.setImage(image);
             journal = new JournalManager(ToDoList.getText());
-            if(journal.writeJournal().contains("Find the murderer"))
-            { journal.removeItem("Find the murderer!");}
-            if(journal.writeJournal().contains("Kill the murderer!"))
-            { journal.removeItem("Kill the murderer!");}
+            if (journal.writeJournal().contains("Find the murderer")) {
+                journal.removeItem("Find the murderer!");
+            }
+            if (journal.writeJournal().contains("Kill the murderer!")) {
+                journal.removeItem("Kill the murderer!");
+            }
             ToDoList.setText(journal.writeJournal());
-            talkCitizen3_1.setVisible(false);
+            talkXymerita.setVisible(false);
         }
         if (response.contains("End conversation")) {
             if(nameOfPartner.getText().contains("Cáermé")&& response.contains("Finish"))

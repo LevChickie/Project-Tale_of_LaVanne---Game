@@ -16,9 +16,10 @@ public class Main extends Application {
         primaryStage.setScene(new Scene(root, 1280, 720));
       //  primaryStage.setFullScreen(true);
         primaryStage.show();
-       AudioClip audio = new AudioClip(this.getClass().getResource("City.wav").toString());
-       audio.setVolume(0.25);
-       audio.play();
+        AudioClip audio = new AudioClip(this.getClass().getResource("City.wav").toString());
+        audio.setVolume(0.25);
+        audio.setCycleCount(audio.INDEFINITE);
+        audio.play();
     }
 
 

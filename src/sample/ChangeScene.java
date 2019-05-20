@@ -9,7 +9,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class ChangeScene {
-    String namePlace;
+    private String namePlace;
     ChangeScene(String place)
     {
         namePlace=place;
@@ -44,89 +44,79 @@ public class ChangeScene {
                 return "Berg Aen Dal, house (4)";
             case "murderer (dead)":
                 return "Berg Aen Dal, house (4)";
+            case "murder scene (Xym dead)":
+                return "murder scene (Xym dead)";
             default:
                 return "";
         }
     }
-    public Image changePlace() throws IOException {
-        File newFile;
-        BufferedImage bufferedImage;
-        Image image;
+    public Image changePlace()  {
+                Image image;
+                LoadPicture loading;
         switch (namePlace) {
             case "city":
-                newFile = new File("C:\\Users\\MrGamble\\IdeaProjects\\Tale of LaVanne correcting\\src\\sample\\city.png");
-                bufferedImage = ImageIO.read(newFile);
-                image = SwingFXUtils.toFXImage(bufferedImage, null);
+                loading = new LoadPicture("city");
+                image = loading.getItem();
                 return image;
             case "tavern":
-                newFile = new File("C:\\Users\\MrGamble\\IdeaProjects\\Tale of LaVanne correcting\\src\\sample\\tavern.png");
-                bufferedImage = ImageIO.read(newFile);
-                image = SwingFXUtils.toFXImage(bufferedImage, null);
+                loading = new LoadPicture("tavern");
+                image = loading.getItem();
                 return image;
             case "castle":
-                newFile = new File("C:\\Users\\MrGamble\\IdeaProjects\\Tale of LaVanne correcting\\src\\sample\\Castle.png");
-                bufferedImage = ImageIO.read(newFile);
-                image = SwingFXUtils.toFXImage(bufferedImage, null);
+                loading = new LoadPicture("Castle");
+                image = loading.getItem();
                 return image;
             case "house 1":
-                newFile = new File("C:\\Users\\MrGamble\\IdeaProjects\\Tale of LaVanne correcting\\src\\sample\\wrong house.png");
-                bufferedImage = ImageIO.read(newFile);
-                image = SwingFXUtils.toFXImage(bufferedImage, null);
+                loading = new LoadPicture("wrong house");
+                image = loading.getItem();
                 return image;
             case "house 2":
-                newFile = new File("C:\\Users\\MrGamble\\IdeaProjects\\Tale of LaVanne correcting\\src\\sample\\wronghouse2.png");
-                bufferedImage = ImageIO.read(newFile);
-                image = SwingFXUtils.toFXImage(bufferedImage, null);
+                loading = new LoadPicture("wronghouse2");
+                image = loading.getItem();
                 return image;
             case "house 3":
-                newFile = new File("C:\\Users\\MrGamble\\IdeaProjects\\Tale of LaVanne correcting\\src\\sample\\wrong house 3.png");
-                 bufferedImage = ImageIO.read(newFile);
-                 image = SwingFXUtils.toFXImage(bufferedImage, null);
+                loading = new LoadPicture("wrong house 3");
+                image = loading.getItem();
                 return image;
             case "merchant":
-                newFile = new File("C:\\Users\\MrGamble\\IdeaProjects\\Tale of LaVanne correcting\\src\\sample\\Merc.png");
-                bufferedImage = ImageIO.read(newFile);
-                image = SwingFXUtils.toFXImage(bufferedImage, null);
+                loading = new LoadPicture("Merc");
+                image = loading.getItem();
                 return image;
             case "slums":
-                newFile = new File("C:\\Users\\MrGamble\\IdeaProjects\\Tale of LaVanne correcting\\src\\sample\\bergaendalSLUMs.png");
-                bufferedImage = ImageIO.read(newFile);
-                image = SwingFXUtils.toFXImage(bufferedImage, null);
+                loading = new LoadPicture("bergaendalSLUMs");
+                image = loading.getItem();
                 return image;
             case "thieves den":
-                newFile = new File("C:\\Users\\MrGamble\\IdeaProjects\\Tale of LaVanne correcting\\src\\sample\\ThievesDen.png");
-                bufferedImage = ImageIO.read(newFile);
-                image = SwingFXUtils.toFXImage(bufferedImage, null);
+                loading = new LoadPicture("ThievesDen");
+                image = loading.getItem();
                 return image;
             case "library":
-                newFile = new File("C:\\Users\\MrGamble\\IdeaProjects\\Tale of LaVanne correcting\\src\\sample\\gaelinslibrary.png");
-                bufferedImage = ImageIO.read(newFile);
-                image = SwingFXUtils.toFXImage(bufferedImage, null);
+                loading = new LoadPicture("gaelinslibrary");
+                image = loading.getItem();
                 return image;
             case "murder scene":
-                newFile = new File("C:\\Users\\MrGamble\\IdeaProjects\\Tale of LaVanne correcting\\src\\sample\\murder_scene.png");
-                bufferedImage = ImageIO.read(newFile);
-                image = SwingFXUtils.toFXImage(bufferedImage, null);
+                loading = new LoadPicture("murder_scene");
+                image = loading.getItem();
                 return image;
             case "aedirn":
-                newFile = new File("C:\\Users\\MrGamble\\IdeaProjects\\Tale of LaVanne correcting\\src\\sample\\Aedirn.png");
-                bufferedImage = ImageIO.read(newFile);
-                image = SwingFXUtils.toFXImage(bufferedImage, null);
+                loading = new LoadPicture("Aedirn");
+                image = loading.getItem();
                 return image;
             case "murderer":
-                newFile = new File("C:\\Users\\MrGamble\\IdeaProjects\\Tale of LaVanne correcting\\src\\sample\\murderer.png");
-                bufferedImage = ImageIO.read(newFile);
-                image = SwingFXUtils.toFXImage(bufferedImage, null);
+                loading = new LoadPicture("murderer");
+                image = loading.getItem();
                 return image;
             case "murderer (dead)":
-                newFile = new File("C:\\Users\\MrGamble\\IdeaProjects\\Tale of LaVanne correcting\\src\\sample\\DeadMurderer.png");
-                bufferedImage = ImageIO.read(newFile);
-                image = SwingFXUtils.toFXImage(bufferedImage, null);
+                loading = new LoadPicture("deadmurd");
+                image = loading.getItem();
+                return image;
+            case "murder scene (Xym dead)":
+                loading = new LoadPicture("xymdead");
+                image = loading.getItem();
                 return image;
             default:
-                newFile = new File("C:\\Users\\MrGamble\\IdeaProjects\\Tale of LaVanne correcting\\src\\sample\\city.png");
-                 bufferedImage = ImageIO.read(newFile);
-                 image = SwingFXUtils.toFXImage(bufferedImage, null);
+                loading = new LoadPicture("city");
+                image = loading.getItem();
                 return image;
         }
     }

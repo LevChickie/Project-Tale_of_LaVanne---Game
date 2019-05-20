@@ -2,14 +2,9 @@
 
 <?import javafx.scene.text.*?>
 <?import javafx.scene.image.*?>
-<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
-<?import java.lang.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
+
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
     <top>
@@ -123,7 +118,7 @@
             <Button layoutX="10.0" layoutY="-1.0" mnemonicParsing="false" onAction="#changeImageOnPushForOrell" text="Change For Orell" visible="false" />
             <Button fx:id="pickUpSilver" layoutX="498.0" layoutY="380.0" mnemonicParsing="false" onAction="#pickUpSilverCastle" text="pick up Silver" visible="false" />
             <Button layoutX="142.0" layoutY="-1.0" mnemonicParsing="false" onAction="#changeImageOnPushForEloise" text="Change For Eloise" visible="false" />
-            <Button fx:id="buyBeer" layoutX="781.0" layoutY="204.0" mnemonicParsing="false" onAction="#loseSilver" text="Buy a Beer" visible="false" />
+            <Button fx:id="buyBeer" layoutX="781.0" layoutY="204.0" mnemonicParsing="false" onAction="#buyBeer" text="Buy a Beer" visible="false" />
             <Button fx:id="talkBartender" layoutX="806.0" layoutY="172.0" mnemonicParsing="false" onAction="#greetingMonologueBartender" text="Talk bartender" visible="false" />
             <Button fx:id="talkCaerme" layoutX="404.0" layoutY="197.0" mnemonicParsing="false" onAction="#greetingMonologueCaerme" text="Talk: Caerme" visible="false" />
             <Button fx:id="talkOrell" layoutX="299.0" layoutY="188.0" mnemonicParsing="false" onAction="#greetingMonologueOrell" text="Talk Orell" visible="false" />
